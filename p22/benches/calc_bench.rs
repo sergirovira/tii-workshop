@@ -12,6 +12,6 @@ fn bench_fibonacci_loop(b: &mut Bencher) {
 
 #[bench]
 fn bench_fibonacci_rec(b: &mut Bencher) {
-    let n = black_box(10);
+    let n = black_box(100);
     b.iter(|| fibonacci_rec(n));
 }
