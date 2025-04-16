@@ -1,0 +1,1 @@
+/home/sergirovira/rustcourseTII/tii-workshop/target/debug/libp22.rlib: /home/sergirovira/rustcourseTII/tii-workshop/p22/src/calc.rs /home/sergirovira/rustcourseTII/tii-workshop/p22/src/figures.rs /home/sergirovira/rustcourseTII/tii-workshop/p22/src/lib.rs /home/sergirovira/rustcourseTII/tii-workshop/p22/src/song.rs /home/sergirovira/rustcourseTII/tii-workshop/p22/src/tictac.rs
