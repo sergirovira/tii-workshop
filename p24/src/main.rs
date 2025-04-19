@@ -3,10 +3,10 @@ fn main() {
 
     let mut n = 2;
     let nth = nth_item(&arr, &n);
-    let increased = increased_by_first_item(&arr, &mut n);
 
     let value = {
-        let values = TwoValues::new(&arr[3], increased);
+        let increased = increased_by_first_item(&arr, &mut n) 
+        let values: = TwoValues::new(&arr[3], increased);
 
         assert_eq!(*values.get_first(), 16);
 
@@ -31,8 +31,8 @@ struct TwoValues<'a> {
     second: &'a usize,
 }
 
-impl TwoValues<'_> {
-    pub fn new(first: &usize, second: &usize) -> Self {
+impl<'a> TwoValues<'a> {
+    pub fn new(first: &'a usize, second: &'a usize) -> Self {
         Self { first, second }
     }
 
