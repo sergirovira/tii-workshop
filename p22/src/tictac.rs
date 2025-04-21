@@ -21,6 +21,12 @@ pub struct TicTacField {
     field: [[GameSymbol; 3]; 3],
 }
 
+impl Default for TicTacField {
+    fn default() -> Self {
+        Self::new()
+    }
+}
+
 impl TicTacField {
     pub fn new() -> Self {
         Self {
