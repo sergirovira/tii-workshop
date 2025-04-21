@@ -1,3 +1,4 @@
+#[derive(Debug)]
 struct User {
     name: String,
     credit_line: u64,
@@ -64,11 +65,18 @@ impl Bank {
         to_user: &str,
         amount: u64,
     ) -> Result<(), String> {
-        let from = self.get_user(from_user);
-        let to = self.get_user(to_user);
+        let from_index = self.users.iter().position(|user| user.name == from_user);
+        let to_index = self.users.iter().position(|user| user.name == to_user);
 
-        if let (Some(from_user), Some(to_user)) = (from, to) {
-            if from_user.balance + i64::from(amount) < 0 {
+        if let (Some(from_index), Some(to_index)) = (from_index, to_index) {
+            let (from_user, to_user) = if from_index < to_index {
+                let (left, right) = self.users.split_at_mut(to_index);
+                (&mut left[from_index], &mut right[0])
+            } else {
+                let (left, right) = self.users.split_at_mut(from_index);
+                (&mut right[0], &mut left[to_index])
+            };
+            if from_user.balance + (amount as i64) < 0 {
                 return Err(format!(
                     "Transfer failed: {} does not have enough balance.",
                     from_user.name
@@ -76,8 +84,8 @@ impl Bank {
             }
 
             // Update balances
-            from_user.balance -= i64::from(amount);
-            to_user.balance += i64::from(amount);
+            from_user.balance -= amount as i64;
+            to_user.balance += amount as i64;
             Ok(())
         } else {
             Err("Transfer failed: One or both users not found.".to_string())
@@ -88,26 +96,44 @@ impl Bank {
         for user in &mut self.users {
             if user.balance < 0 {
                 // Debit interest
-                user.balance -= i64::from(user.balance.abs() as u64 * self.debit_interest / 100);
+                user.balance -= (user.balance.abs() as u64 * self.debit_interest / 100) as i64;
             } else if user.credit_line > 0 {
                 // Credit interest
-                user.balance += i64::from(user.credit_line * self.credit_interest / 100);
+                user.balance += (user.credit_line * self.credit_interest / 100) as i64;
             }
         }
     }
 
     fn merge_bank(&mut self, other: Bank) {
         for user in other.users {
-            match self.get_user(&user.name) {
-                Some(existing_user) => {
-                    // Update existing user's balance
-                    existing_user.update_balance(existing_user.balance + user.balance);
-                }
-                None => {
-                    // Add new user
-                    self.users.push(user);
-                }
+            if let Some(existing_user) = self.users.iter_mut().find(|u| u.name == user.name) {
+                // Update existing user's balance
+                existing_user.update_balance(user.balance);
+            } else {
+                // Add new user
+                self.users.push(user);
             }
         }
+    }
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn test_bank() {
+        let mut bank = Bank::new("Test Bank".to_string(), 5, 10);
+        bank.add_user("Alice".to_string(), 1000);
+        bank.add_user("Bob".to_string(), 500);
+
+        assert_eq!(bank.get_user("Alice").unwrap().name, "Alice");
+        assert!(bank.get_user("Charlie").is_none());
+        assert_eq!(bank.calc_balance(), (0, 1500));
+        assert_eq!(bank.users.len(), 2);
+        assert_eq!(bank.users[0].balance, 0);
+        assert_eq!(bank.users[1].balance, 0);
+        assert_eq!(bank.users[0].credit_line, 1000);
+        assert_eq!(bank.users[1].credit_line, 500);
     }
 }
