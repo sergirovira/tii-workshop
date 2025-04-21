@@ -3,5 +3,5 @@
 version = 4
 
 [[package]]
-name = "p12"
+name = "p32"
 version = "0.1.0"
