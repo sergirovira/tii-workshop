@@ -154,26 +154,30 @@ pub fn perimeter_shape(s: Shape) -> f64 {
     }
 }
 
-#[test]
-fn test_area_triangle() {
-    let a = Point::new(0.0, 0.0);
-    let b = Point::new(3.0, 0.0);
-    let c = Point::new(3.0, 4.0);
-    let area = area_triangle(a, b, c);
-    assert_eq!(area, 6.0);
-}
-#[test]
-fn test_area_cercle() {
-    let a = Point::new(0.0, 0.0);
-    let c = Circle::new(a, 3.0);
-    let area = area_cercle(c);
-    assert_eq!(area, std::f64::consts::PI * 9.0);
-}
-#[test]
-fn test_area_rectangle() {
-    let a = Point::new(0.0, 0.0);
-    let b = Point::new(3.0, 4.0);
-    let r = Rectangle::new(a, b);
-    let area = area_rectangle(r);
-    assert_eq!(area, 12.0);
+#[cfg(test)]
+mod test {
+    use super::*;
+    #[test]
+    fn test_area_triangle() {
+        let a = Point::new(0.0, 0.0);
+        let b = Point::new(3.0, 0.0);
+        let c = Point::new(3.0, 4.0);
+        let area = area_triangle(a, b, c);
+        assert_eq!(area, 6.0);
+    }
+    #[test]
+    fn test_area_cercle() {
+        let a = Point::new(0.0, 0.0);
+        let c = Circle::new(a, 3.0);
+        let area = area_cercle(c);
+        assert_eq!(area, std::f64::consts::PI * 9.0);
+    }
+    #[test]
+    fn test_area_rectangle() {
+        let a = Point::new(0.0, 0.0);
+        let b = Point::new(3.0, 4.0);
+        let r = Rectangle::new(a, b);
+        let area = area_rectangle(r);
+        assert_eq!(area, 12.0);
+    }
 }

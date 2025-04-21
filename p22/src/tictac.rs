@@ -61,34 +61,27 @@ impl TicTacField {
     }
 
     pub fn analyze(&self) -> GameResult {
-        // Check rows and columns
-        for i in 0..3 {
-            if self.field[i][0] != GameSymbol::E
-                && self.field[i][0] == self.field[i][1]
-                && self.field[i][1] == self.field[i][2]
-            {
-                return self.get_winner(self.field[i][0]);
-            }
-            if self.field[0][i] != GameSymbol::E
-                && self.field[0][i] == self.field[1][i]
-                && self.field[1][i] == self.field[2][i]
-            {
-                return self.get_winner(self.field[0][i]);
-            }
-        }
+        let lines = [
+            // Rows
+            [self.field[0][0], self.field[0][1], self.field[0][2]],
+            [self.field[1][0], self.field[1][1], self.field[1][2]],
+            [self.field[2][0], self.field[2][1], self.field[2][2]],
+            // Columns
+            [self.field[0][0], self.field[1][0], self.field[2][0]],
+            [self.field[0][1], self.field[1][1], self.field[2][1]],
+            [self.field[0][2], self.field[1][2], self.field[2][2]],
+            // Diagonals
+            [self.field[0][0], self.field[1][1], self.field[2][2]],
+            [self.field[0][2], self.field[1][1], self.field[2][0]],
+        ];
 
-        // Check diagonals
-        if self.field[0][0] != GameSymbol::E
-            && self.field[0][0] == self.field[1][1]
-            && self.field[1][1] == self.field[2][2]
-        {
-            return self.get_winner(self.field[0][0]);
-        }
-        if self.field[0][2] != GameSymbol::E
-            && self.field[0][2] == self.field[1][1]
-            && self.field[1][1] == self.field[2][0]
-        {
-            return self.get_winner(self.field[0][2]);
+        for line in &lines {
+            if *line == [GameSymbol::X; 3] {
+                return GameResult::WinX;
+            }
+            if *line == [GameSymbol::O; 3] {
+                return GameResult::WinO;
+            }
         }
 
         GameResult::GameOn

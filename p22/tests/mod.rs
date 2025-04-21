@@ -91,6 +91,8 @@ fn test_tictac_analyze() {
     assert!(field.make_move(1, 1, &player_b).is_ok());
     assert!(field.make_move(0, 2, &player_a).is_ok());
 
+    println!("{:?}", field.analyze());
+
     // Check if Player A wins
     assert!(field.analyze() == p22::tictac::GameResult::WinX);
 }
