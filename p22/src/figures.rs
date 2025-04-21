@@ -10,29 +10,6 @@ impl Point {
     }
 }
 
-impl Ord for Point {
-    fn cmp(&self, other: &Self) -> std::cmp::Ordering {
-        if self.x == other.x {
-            if self.y == other.y {
-                std::cmp::Ordering::Equal
-            } else if self.y < other.y {
-                std::cmp::Ordering::Less
-            } else {
-                std::cmp::Ordering::Greater
-            }
-        } else if self.x < other.x {
-            std::cmp::Ordering::Less
-        } else {
-            std::cmp::Ordering::Greater
-        }
-    }
-}
-impl PartialOrd for Point {
-    fn partial_cmp(&self, other: &Self) -> Option<std::cmp::Ordering> {
-        Some(self.cmp(other))
-    }
-}
-
 impl Eq for Point {
     fn assert_receiver_is_total_eq(&self) {}
 }
