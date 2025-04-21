@@ -86,12 +86,4 @@ impl TicTacField {
 
         GameResult::GameOn
     }
-
-    fn get_winner(&self, symbol: GameSymbol) -> GameResult {
-        match symbol {
-            GameSymbol::X => GameResult::WinX,
-            GameSymbol::O => GameResult::WinO,
-            GameSymbol::E => GameResult::GameOn,
-        }
-    }
 }

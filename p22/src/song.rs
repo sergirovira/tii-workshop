@@ -22,12 +22,12 @@ pub fn print_lyrics() {
         "tenth", "eleventh", "twelfth",
     ];
 
-    for day in 0..12 {
-        println!("On the {} day of Christmas", days[day]);
+    for (day_index, day) in days.iter().enumerate() {
+        println!("On the {} day of Christmas", day);
         println!("My true love gave to me");
 
-        for gift in (0..=day).rev() {
-            if day > 0 && gift == 0 {
+        for gift in (0..=day_index).rev() {
+            if gift == 0 {
                 print!("And ");
             }
             println!("{}", gifts[gift]);

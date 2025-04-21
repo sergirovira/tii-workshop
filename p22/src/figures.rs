@@ -28,13 +28,12 @@ impl Point {
 
 #[derive(Default, Debug, Clone, Copy)]
 pub struct Circle {
-    center: Point,
     radius: f64,
 }
 
 impl Circle {
-    pub fn new(center: Point, radius: f64) -> Self {
-        Self { center, radius }
+    pub fn new(radius: f64) -> Self {
+        Self { radius }
     }
 }
 
@@ -167,8 +166,7 @@ mod test {
     }
     #[test]
     fn test_area_cercle() {
-        let a = Point::new(0.0, 0.0);
-        let c = Circle::new(a, 3.0);
+        let c = Circle::new(3.0);
         let area = area_cercle(c);
         assert_eq!(area, std::f64::consts::PI * 9.0);
     }

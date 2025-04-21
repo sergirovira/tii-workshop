@@ -47,8 +47,7 @@ fn test_perimeter_triangle() {
 }
 #[test]
 fn test_perimeter_cercle() {
-    let a = Point::new(0.0, 0.0);
-    let c = Circle::new(a, 3.0);
+    let c = Circle::new(3.0);
     let perimeter = perimeter_cercle(c);
     assert_eq!(perimeter, 6.0 * std::f64::consts::PI);
 }
