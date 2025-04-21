@@ -7,9 +7,5 @@ name = "p12"
 version = "0.1.0"
 
 [[package]]
-name = "p22"
-version = "0.1.0"
-
-[[package]]
 name = "p24"
 version = "0.1.0"
