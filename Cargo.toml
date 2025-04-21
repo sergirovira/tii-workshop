@@ -1,5 +1,3 @@
 [workspace]
 resolver = "3"
-members = [
-    "p12","p22"
-, "p24", "p32", "p42", "p44"]
+members = ["p44"]
