@@ -1,4 +1,4 @@
 [workspace]
 resolver = "3"
 members = [
-    "p24"]
+    "p12", "p22", "p24"]
